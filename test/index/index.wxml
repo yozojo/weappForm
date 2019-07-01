@@ -1,0 +1,17 @@
+<boxForm rules="{{rules}}" model="{{model}}" id="boxForm">
+<boxFormItem wx:for="{{fields}}"
+  wx:for-item="item"
+  wx:for-index="index"
+  wx:key="index"
+  showBtn
+  prop="{{item.name}}"
+  type="{{item.type}}"
+  mask="{{item.mask}}"
+  message="{{item.message}}"
+  index="{{index+1}}"
+  bind:btn="sendHandle"
+  label="{{item.label}}"></boxFormItem>
+</boxForm>
+<button bindtap="btnHandle">按钮</button>
+<button bindtap="resetHandle">重置</button>
+<button bindtap="validateHandle">校验</button>

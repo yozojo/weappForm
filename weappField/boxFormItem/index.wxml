@@ -1,0 +1,33 @@
+<view class="box-form-item {{prop ? '' + prop : ''}}">
+  <slot name="before"></slot>
+  <view wx:if="{{hasImg}}" class="form-img-block">
+    <image class="form-img" src="{{imgSrc ? imgSrc : 'data:image/png;base64,'+ base64}}" alt="" />
+    <view class="form-tip">
+      <view wx:if="{{isNotTouchBtn}}" class="tip">已达发送上限</view>
+      <view wx:else bindtap="btnHandle" class="tip">看不清？换一组</view>
+    </view>
+  </view>
+  <view class="v-input v-text-field theme--light {{[ disabled ? 'v-input--is-disabled' : '', isFocus ? 'v-input--is-focused' : '',  validateState === 'error' && !checkValue ? 'v-input--has-state' : '',  validateState && checkValue ? 'v-input--is-dirty' : '',  checkValue && isFocus ? 'v-input--is-label-active' : '',  isFocus ? 'primary--text' : '',  validateState === 'error' && !isFocus ? 'error--text' : '']}}">
+    <view class="icon-stage" wx:if="{{showIcon}}">
+      <label class="count" wx:if="{{showNum}}" style="color:{{icon_color}}">{{index}}</label>
+      <view class="icon iconfont icon-check" wx:elif="{{validateState === 'success'}}"></view>
+      <view class="icon iconfont icon-nocheck" wx:elif="{{validateState === 'error'}}"></view>
+    </view>
+    <view class="v-input__control">
+      <view class="v-input__slot">
+        <view class="v-text-field__slot">
+        <label class="v-label theme--light {{[  isFocus || checkValue ? 'v-label--active' : '',  validateState === 'error' ? 'error--text' : '',  validateState === 'success' && isFocus ? 'primary--text' : '']}}">
+            {{label}}
+          </label>
+        <input class="input-target" disabled="{{disabled}}" type="{{type}}" value="{{computedValue}}" maxlength="{{maxlength}}" bindfocus="focusHandle" bindinput="inputHandle" bindblur="blurHandle" data-eventid="{{'0'}}" data-comkey="{{$k}}" /></view>
+      </view>
+      <view class="v-text-field__details">
+        <view class="v-messages theme--light  {{[validateState === 'error' && !isFocus ? 'error--text' : '']}}">
+          <view class="v-messages__wrapper">{{validateMessage}}</view>
+        </view>
+      </view>
+    </view>
+    <view class="input-right" hidden="{{!(showBtn)}}"><label class="box-count-down {{[isCountDown && count ? 'not-tap' : '']}}" bindtap="btnHandle" data-eventid="{{'1'}}" data-comkey="{{$k}}">{{isCountDown ? (count||'发送验证码') : (btnName ? btnName : '发送验证码')}}</label></view>
+  </view>
+  <slot name="after"></slot>
+</view>
